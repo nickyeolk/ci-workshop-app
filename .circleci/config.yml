@@ -2,18 +2,19 @@
 version: 2
 jobs:
   hello_world:    # name of job
-      docker:       # what docker image to use when running this job 
-            - image: circleci/python:3.6.1
-                working_directory: ~/repo
-                    steps:
-                          - run:      # my first step
-                                    name: hello
-                                              command: echo "HELLO WORLD!!!"
-                                                    - run:      # my second step
-                                                              name: bye
-                                                                        command: echo "GOODBYE!!!"
-                                                                        workflows:
-                                                                          version: 2
-                                                                            my_ci_pipeline:
-                                                                                jobs:
-                                                                                      - hello_world
+    docker:       # what docker image to use when running this job 
+      - image: circleci/python:3.6.1
+    working_directory: ~/repo
+    steps:
+      - run:      # my first step
+          name: hello
+          command: echo "HELLO WORLD!!!"
+      - run:      # my second step
+          name: bye
+          command: echo "GOODBYE!!!"
+
+workflows:
+  version: 2
+  my_ci_pipeline:
+    jobs:
+      - hello_world
